@@ -1,6 +1,6 @@
 # Velocity Scores for waffle.io
 
-Forked from https://github.com/rockerhieu/waffle.io-velocity-scores to provide support for multiple numbers. We use this to track {Estimated} (Done) [Remaining] on a project.
+Forked from https://github.com/rockerhieu/waffle.io-velocity-scores to provide support for multiple numbers. We use this to track {Estimated} (Done) [Remaining] on each card.
 
 Originally: A Chrome extension for velocity scores on [waffle.io](https://waffle.io), ported from https://gist.github.com/jhubert/8eec558ab8cea9fd4aaa which renders velocity scores based on the content of the GitHub issue title.
 
