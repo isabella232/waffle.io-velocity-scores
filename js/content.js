@@ -1,47 +1,55 @@
-function sumScores(scores) {
-  var total = 0;
-  $.each(scores, function () {
-    var v = $(this).text();
-    if (v != '?') {
-      total += parseInt(v, 10);
-    }
-  });
-  return total;
+var brackets = {
+  estimate: /(?:^|\s)\{([\d]+)\}(?:$|\s)/,
+  done: /(?:^|\s)\(([\d]+)\)(?:$|\s)/,
+  remaining: /(?:^|\s)\[([\d]+)\](?:$|\s)/
 }
-function extractScore(t) {
-  var score, matches = t.match(/(?:^|\s)\(([\d]+)\)(?:$|\s)/);
+
+function sumScores(scores) {
+  return Array.prototype.map.call(scores, function(score) {
+    var value = score.innerHTML;
+    return value == '?' ? 0 : parseInt(value, 10);
+  }).reduce(function(sum, value) {
+    return sum + value;
+  }, 0);
+}
+function extractScore(title, bracketName) {
+  var matches = title.match(brackets[bracketName]);
   return matches ? matches[1] : '?';
 }
-function updateCardScore(card, score) {
-  var footer = card.find('.footer');
+function updateScore(container, selector, value, valueClass, bracketName) {
+  var child = container.getElementsByClassName(selector)[0];
  
-  if (footer.find('.score').length) {
-    footer.find('.score strong').text(score);
+  if (child.querySelectorAll('.' + valueClass + '.' + bracketName).length) {
+    child.querySelectorAll('.' + valueClass + '.' + bracketName + ' strong').innerHTML = value;
   } else {
-    footer.append('<div class="score"><strong>' + score + '</strong> <i class="fa fa-lightbulb-o"></i></div>');
-  }
+    var span = document.createElement('span');
+    span.className = valueClass + ' ' + bracketName;
+    span.innerHTML = '<strong>' + value + '</strong>';
+    child.appendChild(span);
+  } 
 }
-function updateColumnTotal(column, total) {
-  var header = column.find('.column-header');
- 
-  if (header.find('.total-score').length) {
-    header.find('.total-score strong').text(total);
-  } else {
-    header.append('<span class="total-score"><strong>' + total + '</strong> <i class="fa fa-lightbulb-o"></i></span>');
-  }
+function updateCardScore(card, score, bracketName) {
+  updateScore(card, 'footer', score, 'score', bracketName);
 }
-function processCardScore() {
-  var t = $(this).find('.title').val();
-  updateCardScore($(this), extractScore(t));
+function updateColumnTotal(column, total, bracketName) {
+  updateScore(column, 'column-header', total, 'total', bracketName);
 }
-function tallyColumn() {
-  updateColumnTotal($(this), sumScores($(this).find('.footer .score strong')));
+function processCardScore(card) {
+  var title = card.getElementsByClassName('title')[0].value;
+  Object.keys(brackets).forEach(function(bracketName) {
+    updateCardScore(this, extractScore(title, bracketName), bracketName);
+  }, card);
+}
+function tallyColumn(column) {
+  Object.keys(brackets).forEach(function(bracketName) {
+    updateColumnTotal(this, sumScores(this.querySelectorAll('.footer .' + bracketName + ' strong')), bracketName);
+  }, column);
 }
 
 function fetchScores() {
-  $('.card-body').each(processCardScore);null
-  $('.column-ct').each(tallyColumn);null
-  setTimeout(fetchScores, 2000)
+  Array.prototype.forEach.call(document.getElementsByClassName('card-body'), processCardScore);
+  Array.prototype.forEach.call(document.getElementsByClassName('column-ct'), tallyColumn);
+  setTimeout(fetchScores, 2000);
 }
 
 fetchScores()

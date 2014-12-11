@@ -10,7 +10,7 @@
   ],
   "content_scripts": [ {
       "css": [ "css/style.css" ],
-      "js": [ "js/jquery-1.9.1.min.js", "js/content.js" ],
+      "js": [ "js/content.js" ],
       "matches": [
         "https://waffle.io/*",
         "http://waffle.io/*"

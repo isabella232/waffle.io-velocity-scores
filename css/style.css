@@ -1,2 +1,32 @@
-.board .card .card-body .footer .score { position: absolute; right: 20px; bottom: 4px; color: #fff; font-size: 14px; padding: 0 5px; background-color: #62B4F8; border-radius: 3px; }
-.board .board-body .column-ct .column .column-header .total-score { color: #fff; margin-left: 10px;  padding: 0 5px; background-color: #62B4F8; border-radius: 3px; vertical-align: top; line-height: 30px;  display: inline-block; margin-top: 5px; height: 28px; }
+.board .card .card-body .footer .score {
+  position: relative;
+  float: right;
+  margin-right: 5px;
+  bottom: 4px;
+  color: #fff;
+  font-size: 14px;
+  padding: 0 5px;
+  border-radius: 3px;
+}
+.board .board-body .column-ct .column .column-header .total {
+  color: #fff;
+  margin-left: 5px;
+  padding: 0 5px;
+  border-radius: 3px;
+  vertical-align: top;
+  line-height: 30px;
+  display: inline-block;
+  margin-top: 5px;
+  font-size: 14px;
+  line-height: 20px;
+  float: right;
+} 
+.estimate {
+  background-color: #62B4F8;
+}
+.done {
+  background-color: #69D758;
+}
+.remaining {
+  background-color: #FF9159;
+}
