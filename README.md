@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/interstateone/waffle.io-velocity-scores.png?label=ready&title=Ready)](https://waffle.io/interstateone/waffle.io-velocity-scores)
 # Velocity Scores for waffle.io
 
 Forked from https://github.com/rockerhieu/waffle.io-velocity-scores to provide support for multiple numbers. We use this to track {Estimated} (Done) [Remaining] on each card.
